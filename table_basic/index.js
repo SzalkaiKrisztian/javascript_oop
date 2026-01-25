@@ -4,6 +4,7 @@
  * @typedef {{name: string, colSpan?: number}} HeaderType
  * @callback VisszaHiv
  * @param {HTMLTableSectionElement}
+ * @param {HTMLButtonElement}
 */
 
 /** @type {HeaderType[]}  */
@@ -106,23 +107,61 @@ class RowSpanTable extends Table {
         renderRowspanBody(this.tbody, RowSpanRowType)
     }
 }
-//----------------------------------------------
+//------------------------------------------------------------Col
 const colSpanTable = new ColSpanTable(colspanHeaderArr)
 colSpanTable.render(colspanBodyArr)
 
+addButtonAndEventListener("colspan hozzáadása", buttonColAdd, colSpanTable)
+
+/**
+ * @this ColSpanTable
+ * @returns {void}
+ */
+function buttonColAdd() {
+    /**@type {ColspanRowType} */
+    const obj = {
+        author: "Franz Kafka",
+        title: "Az átváltozás",
+        concepts: "kisregény",
+        concepts2: "groteszk"
+    }
+    this.method(function (body) {
+        const tr1 = document.createElement('tr')
+        body.appendChild(tr1)
+
+        const td = document.createElement('td')
+        td.innerText = obj.author
+        tr1.appendChild(td)
+
+        const td1 = document.createElement('td')
+        td1.innerText = obj.title
+        tr1.appendChild(td1)
+
+        const td2 = document.createElement('td')
+        td2.innerText = obj.concepts
+        tr1.appendChild(td2)
+
+        if (!obj.concepts2) {// van-e ott valami
+            td2.colSpan = 2 //ha, akkor colspan
+        }
+        else {
+            const td3 = document.createElement('td')
+            td3.innerText = obj.concepts2
+            tr1.appendChild(td3)
+        }
+    })
+}
+//-------------------------------------------------------------Row
 const rowSpanTable = new RowSpanTable(rowspanHeaderArr)
 rowSpanTable.render(rowspanBodyArr)
 
-const button = document.createElement('button')
-button.innerText = "rowspan hozzáadása"
-document.body.appendChild(button)
-button.addEventListener('click', buttonSorAdd.bind(rowSpanTable))
+addButtonAndEventListener("rowspan hozzáadása", buttonRowAdd, rowSpanTable)
 
 /**
  * @this RowSpanTable
  * @returns {void}
  */
-function buttonSorAdd(){
+function buttonRowAdd() {
     /**@type {RowspanRowType} */
     const objektum = {
         author: "Franz Kafka",
@@ -165,4 +204,19 @@ function buttonSorAdd(){
             tr2.appendChild(td5)
         }
     })
+}
+
+//seged fgv-ek
+/**
+ * 
+ * @param {string} Buttontxt 
+ * @param {VisszaHiv} visszFgv 
+ * @param {RowSpanTable | ColSpanTable} osztalyPeldany
+ * @returns {void}
+ */
+function addButtonAndEventListener(Buttontxt, visszFgv, osztalyPeldany) {
+    const button = document.createElement('button')
+    button.innerText = Buttontxt
+    document.body.appendChild(button)
+    button.addEventListener('click', visszFgv.bind(osztalyPeldany))
 }
