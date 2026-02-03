@@ -12,6 +12,12 @@ const muveletLetrehoz=(jel)=>{
     if(jel == '+'){
         return (a,b)=>{return a+b}
     }
+    if(jel == '-'){
+        return (a,b)=>{return a-b}
+    }
+    if(jel == '*'){
+        return (a,b)=>{return a*b}
+    }
 }
 const fv=muveletLetrehoz('+')
 console.log(fv(1,2))

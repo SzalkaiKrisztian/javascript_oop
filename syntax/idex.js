@@ -1,4 +1,5 @@
 import { muvelet,muveletLetrehoz } from "./functions.js"
+import { Gomb } from "./Gomb.js"
 
 /**@type {HTMLInputElement} */
 const inputF1 = document.createElement('input')
@@ -16,14 +17,7 @@ document.body.appendChild(inputF2)
 const div = document.createElement('div')
 document.body.appendChild(div)
 
-/**@type {HTMLButtonElement} */
-const button = document.createElement("button")
-button.innerText="hozzaad"
-document.body.appendChild(button)
+const osszead = new Gomb(inputF1,inputF2,"+",div)
+const kivon = new Gomb(inputF1,inputF2,"-",div)
+const szorzas = new Gomb(inputF1,inputF2,"*",div)
 
-button.addEventListener('click',function(){
-    const sz1=Number(inputF1.value)
-    const sz2=Number(inputF2.value)
-    const {result} = muvelet(sz1,sz2,muveletLetrehoz('+'))
-    div.innerText=result
-})
