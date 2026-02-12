@@ -5,4 +5,3 @@
  * @typedef {{nemzet: string, szerzo: string, mu: string, szerzo2: string, mu2: string}} RowspanType
  */
 
-export const a = 3;
