@@ -4,10 +4,20 @@
 import {Manager} from './manager.js'
 import data from './data.json' with{type:"json"}
 import { Table } from './table.js';
+import { FromController } from './form.js';
 
 const manager = new Manager();
 const table=new Table(data.colspanHeaderArray,manager)
-table.setAppendRow((tbody,elem)=>{
+table.setAppendRow(renderTbodyColSpan)
+for(const d of data.colspanDataArr){
+    manager.addElement(d)
+}
+/**
+ * 
+ * @param {HTMLTableSectionElement} tbody 
+ * @param {ColspanType} elem 
+ */
+function renderTbodyColSpan(tbody, elem){
     const tr = document.createElement('tr')
     tbody.appendChild(tr)
 
@@ -19,10 +29,8 @@ table.setAppendRow((tbody,elem)=>{
     }else{
         td.colSpan=2
     }
-})
-for(const d of data.colspanDataArr){
-    manager.addElement(d)
 }
+const form = new FromController(data.colspanFormFieldList,manager)
 /**
  * 
  * @param {string} celltxt 
