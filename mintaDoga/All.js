@@ -125,11 +125,12 @@ const createForm = (createFieldsCallback, submitEventListener) => {
         form.addEventListener('submit', submitEventListener);
         return form;
 }
-
+//---------------------------------------------------------------------------
 class Manager{
 
 }
 
 class Table{
-    
+
 }
+//----------------------------------------------------------------------------
