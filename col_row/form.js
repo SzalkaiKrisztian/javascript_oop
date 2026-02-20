@@ -5,6 +5,8 @@ class FromController{
     #manager
     /**@type {FormField[]} */
     #FormFieldElemList
+    /**@type {HTMLFormElement} */
+    #form;
     /**
      * 
      * @param {FormFieldType[]} formFieldList 
@@ -14,6 +16,7 @@ class FromController{
         this.#manager=manager
         const form = document.createElement('form')
         document.body.appendChild(form)
+        this.#form=form
         this.#FormFieldElemList=[]
         for(const formField of formFieldList){
             const formFieldElem = new FormField(formField.id,formField.name,formField.label,formField.required, form)
@@ -22,8 +25,8 @@ class FromController{
 
         const button = document.createElement('button')
         button.innerText="hozzafűz"
-        form.appendChild(button)
-        form.addEventListener('submit',(e)=>{
+        this.#form.appendChild(button)
+        this.#form.addEventListener('submit',(e)=>{
             e.preventDefault()
             const elem = this.#createElement()
             if(elem){

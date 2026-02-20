@@ -2,7 +2,7 @@
  * @import {FormFieldType,HeaderArrayType,ColspanType,RowspanType} from './functions.js' 
  *
  * @callback addCallback
- * @param {ColspanType | RowspanType} 
+ * @param {ColspanType | RowspanType} type
  * @returns {void}
  * */
 class Manager{
