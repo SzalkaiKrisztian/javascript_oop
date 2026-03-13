@@ -2,6 +2,10 @@
  * @callback TableCallback
  * @param {Author[]} authorList
  * @returns {void}
+ * 
+ * @callback addElementResultCallback
+ * @param {string} message
+ * @returns {void}
  */
 class AuthorManager{
     /** @type {Author[]} */
@@ -11,10 +15,21 @@ class AuthorManager{
     #tableCallback;
 
     /**
+     * @type {addElementResultCallback}
+     */
+    #addElementResultCallBack
+
+    /**
      * @param {TableCallback} value
      */
     set tableCallback(value){
         this.#tableCallback=value
+    }
+    /**
+     * @param {addElementResultCallback} value 
+     */
+    set addElementResultCallback(value){
+        this.#addElementResultCallBack=value
     }
 
     constructor(){
@@ -31,7 +46,12 @@ class AuthorManager{
         author.name= element.author;
         author.work= element.work;
         author.concept= element.concept;
-        this.#authorList.push(author)
+        if(author.validate()){
+            this.#authorList.push(author)
+            this.#addElementResultCallBack('Sikeres elemfelvétel')
+        }else{
+            this.#addElementResultCallBack('Nem volt sikeres az elemfelvétel')
+        }
     }
 
     /**
@@ -77,6 +97,10 @@ class Author{
     }
     set concept(value){
         this.#concept= value
+    }
+    /**@returns {boolean} */
+    validate(){
+        return this.#name && this.#concept && this.#work
     }
 }
 
