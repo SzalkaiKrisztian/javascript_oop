@@ -81,6 +81,7 @@ class AuthorManager {
                 this.#importResultCallback('Sikeres volt.')
             }else{
                 this.#addElementResultCallBack('Sikertelen muvelet')
+                break;
             }
         }
     }
@@ -91,7 +92,17 @@ class AuthorManager {
     getAllElement() {
         this.#tableCallback(this.#authorList);
     }
-
+    /**
+     * @returns {string}
+     */
+    getExportString(){
+        const result=[]
+        for(const author of this.#authorList){
+            result.push(`${author.name};${author.work};${author.concept}`)
+        }
+        return result.join("\n")
+    }
+    
 }
 
 class Author {

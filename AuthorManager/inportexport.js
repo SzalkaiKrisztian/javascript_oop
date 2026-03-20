@@ -32,7 +32,7 @@ class ImportView extends ViewElement{
             reader.readAsText(file, 'UTF-8')
             reader.onload=()=>{
                 /**@type {import(".").AuthorType[]} */
-                const result={}
+                const result=[]
                 const fileContent = reader.result
                 const sorok = fileContent.split('\n')
                 for(const sor of sorok){
@@ -48,6 +48,19 @@ class ImportView extends ViewElement{
                 }
                 this.#manager.addElementList(result)
             }
+        })
+        const exportButton = document.createElement('button')
+        exportButton.innerText='Export'
+        this.div.appendChild(exportButton)
+        exportButton.addEventListener('click', ()=>{
+            const a =document.createElement('a')
+            const fileContent = this.#manager.getExportString()
+            const file = new Blob([fileContent])
+            const filrUrl = URL.createObjectURL(file)
+            a.href=filrUrl
+            a.download='export.csv'
+            a.click()
+            URL.revokeObjectURL(a.href)
         })
     }
 }
