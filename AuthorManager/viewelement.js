@@ -1,6 +1,7 @@
 import { hide, show } from "./gomszab.min.js";
 
 /**
+ * Ősosztály a megjelenítendő view osztálynK
  * @callback ActivateCallback
  * @returns {void}
  */
@@ -10,18 +11,18 @@ class ViewElement{
     /**@type {string} */
     #id;
     /**@type {ActivateCallback} */
-    #activateCallback;
+    #activateCallback;//LEFUT HA megjelenik az elem a képernyőn(opcionalis pl navigate fugg)
 
     get div(){
         return this.#div
     }
 
     /**@param {ActivateCallback} value */
-    set activateCallback(value){
+    set activateCallback(value){ //beallitja az aktivatecallbacknek a bemeneti parametert
         this.#activateCallback=value
     }
 
-    get id(){
+    get id(){//get az id-nek (navigációkor hasznélatos)
         return this.#id
     }
 
